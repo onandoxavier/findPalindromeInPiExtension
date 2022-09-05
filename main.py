@@ -9,10 +9,10 @@ uri = f'https://api.pi.delivery/v1/pi?'
 url_param1 = 'start'
 url_param2 = 'numberOfDigits'
 primeList = [2, 3, 5]
-batch = 1000
 palindrome_size = 21
+batch = 1000 - palindrome_size
 limit_request = 1000000000
-interval_request = 1
+interval_request = 0.5
 
 #i = 1
 #i = 852
@@ -34,8 +34,32 @@ interval_request = 1
 #i = 10344000 #10345000 -> interval = 1 - batch = 1000 - 894000 numeros no total de 0:22
 #i = 11237000 #11238000 -> interval = 1 - batch = 1000 - 1494000 numeros no total de 0:37
 #i = 12730000 #12731000 -> interval = 1 - batch = 1000 - 213000 numeros no total de 0:05
-i = 12942000 #12943000 -> interval = 1 - batch = 1000 - 
+#i = 12942000 #12943000 -> interval = 4 - batch = 1000 -        numeros no total de 7:05
+#i = 13831000 #13832000 -> interval = 2 - batch = 1000 - 103000 numeros no total de 0:04
+#i = 13933000 #13934000 -> interval = 2 - batch = 1000 - 308000 numeros no total de 0:08
+#i = 14240000 #14241000 -> interval = 4 - batch = 1000 - 93000 numeros no total de 0:07
+#i = 14332000 #14333000 -> interval = 0.5 - batch = 1000 - 2055000 numeros no total de 0:29
+#i = 16386000 #16387000 -> interval = 0.5 - batch = 1000 - 19198000 numeros no total de 0:40
+#i = 19197000 #19198000 -> interval = 0.5 - batch = 1000 - 1105000 numeros no total de 0:15
+#i = 20301000 #20302000 -> interval = 0.5 - batch = 1000 - 1219000 numeros no total de 0:17
+#i = 21519000 #21520000 -> interval = 0.5 - batch = 1000 - 558000 numeros no total de 0:08
+#i = 22076000 #22077000 -> interval = 0.5 - batch = 1000 - 2189000 numeros no total de 0:51
+#i = 24263000 #24264000 -> interval = 0.5 - batch = 1000 - 549219 numeros no total de 0:08 # virada de chave
+#i = 24812198 # interval = 0.5 - batch = 1000 - 616770 numeros no total de 0:08
+#i = 25428947 # interval = 0.5 - batch = 1000 - 839982 numeros no total de 0:12
+#i = 26268908 # interval = 0.5 - batch = 1000 - 777326 numeros no total de 0:11
+#i = 27046213 # inverval = 0.5 - batch = 1000 - 662783 numeros no total de 0:09
+#i = 27708975 # inverval = 0.5 - batch = 1000 - 337755 numeros no total de 0:04
+#i = 28046709 # inverval = 0.5 - batch = 1000 - 353419 numeros no total de 0:05
+#i = 28400107 # inverval = 0.5 - batch = 1000 - 709775 numeros no total de 0:10
+#i = 29109861 # inverval = 0.5 - batch = 1000 - 436634 numeros no total de 0:06
+#i = 29546474 # inverval = 0.5 - batch = 1000 - 378873 numeros no total de 0:05
+#i = 29925326 # inverval = 0.5 - batch = 1000 - 1481227 numeros no total de 0:21
+#i = 31406532 # inverval = 0.5 - batch = 1000 - 2269322 numeros no total de 1:44
+#i = 33675833 # inverval = 0.5 - batch = 1000 - 3172939 numeros no total de 0:45
+i = 36848751
 seed = i
+
 # Metodo que valida se um número é primo
 def is_prime_number(number):
     n = float(number)
@@ -97,15 +121,17 @@ else:
 
 try:
     while find is not True and i < limit_request:
-        URL = f'{uri}{url_param1}={(i) - (palindrome_size - 1)}&{url_param2}={batch}'
-        print(f'{i} digitos analisados até agora...')
+        URL = f'{uri}{url_param1}={(i) - (palindrome_size)}&{url_param2}={batch + palindrome_size}'
+        #print(f'{i} digitos analisados até agora...')
+        print(f'de {(i) - (palindrome_size)} ate {((i) - (palindrome_size)) + (batch + palindrome_size)}')
         r = requests.get(url=URL)
         data = r.json()
         pi = data['content']
+        #print(pi)
         answer = find_prime_palindrome(pi, palindrome_size)
         if answer != "":
             find = True
-            print('Encontrado!')
+            print('Encontrado PORRA CARALHO PRESTA ATENCAO FOI!!!!!')
             print(answer)
 
         else:
